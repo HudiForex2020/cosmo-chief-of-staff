@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+  <script src="https://cdn.jsdelivr.net/npm/@base-js@2script>
 <head>
   <title>COSMO</title>
 </head>
@@ -13,38 +14,56 @@
 
 <div id="response"></div>
 
+const SUPABASE_URL =
+"https://rxtggmcfmbbvpjcrgrbg.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_0pbZL9hkQPpyRJ9i9mnsDg_kQY5N6CL";
+
+const supabaseClient =
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+  
 <script>
-function askCosmo() {
+async function askCosmo() {
 
-  const q = document
-    .getElementById("question")
-    .value
-    .toLowerCase();
+  const q =
+    document
+      .getElementById("question")
+      .value
+      .toLowerCase();
 
-  let answer = "Saya belum memahami pertanyaan tersebut.";
-
-  if(q.includes("tujuan")) {
-    answer =
-      "Tujuan utama Anda adalah memenangkan Best Agent Week 12 dan membangun COSMO sebagai AI Chief of Staff.";
-  }
+  let answer =
+    "Saya belum memahami pertanyaan tersebut.";
 
   if(q.includes("proyek")) {
+
+    const { data } =
+      await supabaseClient
+      .from("projects")
+      .select("*");
+
     answer =
-      "Proyek aktif Anda adalah COSMO, ShortPro, dan ARTHOKU.";
+      "Proyek aktif saat ini:<br><br>";
+
+    data.forEach(project => {
+
+      answer +=
+        "- " +
+        project.name +
+        "<br>";
+
+    });
+
   }
 
-  if(q.includes("visi")) {
-    answer =
-      "Visi COSMO adalah membangun One Person Company yang dijalankan oleh satu manusia dan AI Workforce.";
-  }
-
-  if(q.includes("keputusan")) {
-    answer =
-      "Keputusan penting terakhir adalah menggunakan arsitektur One Person Company dan menjadikan COSMO sebagai Chief Of Staff.";
-  }
-
-  document.getElementById("response").innerHTML =
-    "<br><b>COSMO:</b> " + answer;
+  document.getElementById("response")
+    .innerHTML =
+    "<br><b>COSMO:</b><br>" +
+    answer;
 }
 </script>
 
