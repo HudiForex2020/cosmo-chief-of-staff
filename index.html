@@ -2,224 +2,103 @@
 <html lang="id">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>COSMO™</title>
+<title>COSMO</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/abase-js@2script>
+<style>
+body{
+font-family:Arial,sans-serif;
+max-width:900px;
+margin:40px auto;
+padding:20px;
+}
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 20px;
-        }
+input{
+width:70%;
+padding:10px;
+}
 
-        h1 {
-            margin-bottom: 5px;
-        }
+button{
+padding:10px;
+cursor:pointer;
+}
 
-        h2 {
-            margin-top: 0;
-            color: #666;
-            font-weight: normal;
-        }
+#response{
+margin-top:20px;
+padding:15px;
+border:1px solid #ddd;
+border-radius:8px;
+}
+</style>
 
-        input {
-            width: 70%;
-            padding: 10px;
-            font-size: 16px;
-        }
-
-        button {
-            padding: 10px 15px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        #response {
-            margin-top: 20px;
-            padding: 15px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            min-height: 80px;
-        }
-    </style>
 </head>
 
 <body>
 
-    <h1>COSMO™</h1>
-    <h2>Chief Operating Staff & Management Orchestrator</h2>
+<h1>COSMO™</h1>
+<h2>Chief Operating Staff & Management Orchestrator</h2>
 
-    <input
-        id="question"
-        type="text"
-        placeholder="Tanya COSMO..." />
+<input
+id="question"
+type="text"
+placeholder="Tanya COSMO..." />
 
-    <button onclick="askCosmo()">
-        Send
-    </button>
+<button onclick="askCosmo()">
+Send
+</button>
 
-    <div id="response">
-        COSMO siap menerima pertanyaan.
-    </div>
+<div id="response">
+COSMO siap menerima pertanyaan.
+</div>
 
-    <script>
+<script>
 
-        const SUPABASE_URL =
-            "https://rxtggmcfmbbvpjcrgrbg.supabase.co";
+async function askCosmo(){
 
-        const SUPABASE_KEY =
-            "sb_publishable_0pbZL9hkQPpyRJ9i9mnsDg_kQY5N6CL";
+const q =
+document
+.getElementById("question")
+.value
+.toLowerCase();
 
-        const supabaseClient =
-            supabase.createClient(
-                SUPABASE_URL,
-                SUPABASE_KEY
-            );
+let answer =
+"Saya belum memahami pertanyaan tersebut.";
 
-        async function askCosmo() {
+if(q.includes("proyek")){
 
-            const q =
-                document
-                    .getElementById("question")
-                    .value
-                    .toLowerCase();
+answer =
+"Proyek aktif saat ini:<br><br>" +
+"• COSMO<br>" +
+"• ShortPro<br>" +
+"• ARTHOKU";
 
-            let answer =
-                "Saya belum memahami pertanyaan tersebut.";
+}
 
-            try {
+else if(q.includes("tujuan")){
 
-                if (q.includes("proyek")) {
+answer =
+"Tujuan utama Anda adalah memenangkan Best Agent Week 12 dan membangun COSMO sebagai AI Chief of Staff.";
 
-                    const { data, error } =
-                        await supabaseClient
-                            .from("projects")
-                            .select("*");
+}
 
-                    if (error) {
-                        throw error;
-                    }
+else if(q.includes("visi")){
 
-                    answer =
-                        "Proyek aktif saat ini:<br><br>";
+answer =
+"Visi COSMO adalah membangun One Person Company yang dijalankan oleh satu manusia dan AI Workforce.";
 
-                    data.forEach(project => {
+}
 
-                        answer +=
-                            "• " +
-                            project.name +
-                            "<br>";
+document
+.getElementById("response")
+.innerHTML =
+"<b>COSMO:</b><br><br>" +
+answer;
 
-                    });
+}
 
-                }
-
-                else if (q.includes("tujuan")) {
-
-                    const { data, error } =
-                        await supabaseClient
-                            .from("goals")
-                            .select("*");
-
-                    if (error) {
-                        throw error;
-                    }
-
-                    answer =
-                        "Tujuan utama Anda:<br><br>";
-
-                    data.forEach(goal => {
-
-                        answer +=
-                            "• " +
-                            goal.goal +
-                            "<br>";
-
-                    });
-
-                }
-
-                else if (q.includes("keputusan")) {
-
-                    const { data, error } =
-                        await supabaseClient
-                            .from("decisions")
-                            .select("*")
-                            .order("id",
-                                {
-                                    ascending: false
-                                })
-                            .limit(5);
-
-                    if (error) {
-                        throw error;
-                    }
-
-                    answer =
-                        "Keputusan terakhir:<br><br>";
-
-                    data.forEach(item => {
-
-                        answer +=
-                            "• " +
-                            item.decision +
-                            "<br>";
-
-                    });
-
-                }
-
-                else if (q.includes("visi")) {
-
-                    const { data, error } =
-                        await supabaseClient
-                            .from("memories")
-                            .select("*")
-                            .eq("category",
-                                "vision");
-
-                    if (error) {
-                        throw error;
-                    }
-
-                    if (data.length > 0) {
-
-                        answer =
-                            data[0].content;
-
-                    } else {
-
-                        answer =
-                            "Visi COSMO belum ditemukan.";
-
-                    }
-
-                }
-
-            } catch (err) {
-
-                console.error(err);
-
-                answer =
-                    "⚠ Error: " +
-                    err.message;
-
-            }
-
-            document
-                .getElementById("response")
-                .innerHTML =
-                "<b>COSMO:</b><br><br>" +
-                answer;
-
-        }
-
-    </script>
+</script>
 
 </body>
 
