@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>COSMO</title>
+</head>
+<body>
+
+<h1>COSMO™</h1>
+<h2>Chief Operating Staff & Management Orchestrator</h2>
+
+<input id="question" type="text" placeholder="Tanya COSMO..." />
+<button onclick="askCosmo()">Send</button>
+
+<div id="response"></div>
+
+<script>
+function askCosmo() {
+
+  const q = document
+    .getElementById("question")
+    .value
+    .toLowerCase();
+
+  let answer = "Saya belum memahami pertanyaan tersebut.";
+
+  if(q.includes("tujuan")) {
+    answer =
+      "Tujuan utama Anda adalah memenangkan Best Agent Week 12 dan membangun COSMO sebagai AI Chief of Staff.";
+  }
+
+  if(q.includes("proyek")) {
+    answer =
+      "Proyek aktif Anda adalah COSMO, ShortPro, dan ARTHOKU.";
+  }
+
+  if(q.includes("visi")) {
+    answer =
+      "Visi COSMO adalah membangun One Person Company yang dijalankan oleh satu manusia dan AI Workforce.";
+  }
+
+  if(q.includes("keputusan")) {
+    answer =
+      "Keputusan penting terakhir adalah menggunakan arsitektur One Person Company dan menjadikan COSMO sebagai Chief Of Staff.";
+  }
+
+  document.getElementById("response").innerHTML =
+    "<br><b>COSMO:</b> " + answer;
+}
+</script>
+
+</body>
+</html>
