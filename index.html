@@ -1,61 +1,6 @@
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>COSMO</title>
-
-<style>
-body{
-font-family:Arial,sans-serif;
-max-width:900px;
-margin:40px auto;
-padding:20px;
-}
-
-input{
-width:70%;
-padding:10px;
-}
-
-button{
-padding:10px;
-cursor:pointer;
-}
-
-#response{
-margin-top:20px;
-padding:15px;
-border:1px solid #ddd;
-border-radius:8px;
-}
-</style>
-
-</head>
-
-<body>
-
-<h1>COSMO™</h1>
-<h2>Chief Operating Staff & Management Orchestrator</h2>
-
-<input
-id="question"
-type="text"
-placeholder="Tanya COSMO..." />
-
-<button onclick="askCosmo()">
-Send
-</button>
-
-<div id="response">
-COSMO siap menerima pertanyaan.
-</div>
-
 <script>
 
-async function askCosmo() {
+function askCosmo() {
 
     const q =
         document
@@ -63,36 +8,26 @@ async function askCosmo() {
             .value
             .toLowerCase();
 
-    let answer =
-        `
-        <b>INFORMASI</b><br>
-        Saya belum memahami pertanyaan tersebut.<br><br>
-
-        <b>REKOMENDASI</b><br>
-        Gunakan pertanyaan yang tersedia.<br><br>
-
-        <b>NEXT ACTION</b><br>
-        Tanyakan tentang proyek, tujuan, keputusan, atau visi COSMO.
-        `;
+    let answer = "";
 
     if (q.includes("proyek")) {
 
         answer =
         `
-        <b>INFORMASI</b><br>
+        <b>INFORMASI</b><br><br>
 
         Proyek aktif saat ini:<br>
         • COSMO<br>
         • ShortPro<br>
         • ARTHOKU<br><br>
 
-        <b>REKOMENDASI</b><br>
+        <b>REKOMENDASI</b><br><br>
 
-        Fokus utama minggu ini adalah COSMO karena menjadi fondasi seluruh roadmap hingga Week 12.<br><br>
+        Fokus utama minggu ini adalah COSMO karena menjadi fondasi roadmap Week 12.<br><br>
 
-        <b>NEXT ACTION</b><br>
+        <b>NEXT ACTION</b><br><br>
 
-        Lanjutkan pembangunan Memory Retrieval Engine.
+        Lanjutkan pembangunan Memory Brain.
         `;
     }
 
@@ -100,18 +35,18 @@ async function askCosmo() {
 
         answer =
         `
-        <b>INFORMASI</b><br>
+        <b>INFORMASI</b><br><br>
 
         Tujuan utama saat ini:<br>
         • Menang Best Agent Week 12<br>
         • Membangun COSMO sebagai AI Chief of Staff<br>
         • Membangun One Person Company berbasis AI Workforce<br><br>
 
-        <b>REKOMENDASI</b><br>
+        <b>REKOMENDASI</b><br><br>
 
-        Prioritaskan pengembangan Memory Brain sebelum menambah fitur baru.<br><br>
+        Prioritaskan pembangunan Memory Brain sebelum menambah fitur baru.<br><br>
 
-        <b>NEXT ACTION</b><br>
+        <b>NEXT ACTION</b><br><br>
 
         Selesaikan integrasi Supabase Retrieval.
         `;
@@ -121,18 +56,18 @@ async function askCosmo() {
 
         answer =
         `
-        <b>INFORMASI</b><br>
+        <b>INFORMASI</b><br><br>
 
         Keputusan penting yang telah dibuat:<br>
-        • Nama Chief of Staff adalah COSMO<br>
+        • Nama Chief Of Staff adalah COSMO<br>
         • Menggunakan Human-In-The-Loop<br>
         • Menggunakan arsitektur One Person Company<br><br>
 
-        <b>REKOMENDASI</b><br>
+        <b>REKOMENDASI</b><br><br>
 
         Pertahankan fokus pada visi AI Workforce hingga Week 12.<br><br>
 
-        <b>NEXT ACTION</b><br>
+        <b>NEXT ACTION</b><br><br>
 
         Bangun Executive Dashboard dan Memory Retrieval.
         `;
@@ -142,17 +77,35 @@ async function askCosmo() {
 
         answer =
         `
-        <b>INFORMASI</b><br>
+        <b>INFORMASI</b><br><br>
 
         Visi COSMO adalah membangun One Person Company yang dijalankan oleh satu manusia dan AI Workforce.<br><br>
 
-        <b>REKOMENDASI</b><br>
+        <b>REKOMENDASI</b><br><br>
 
         Fokus pada otomatisasi pekerjaan rutin dan penguatan Memory Brain.<br><br>
 
-        <b>NEXT ACTION</b><br>
+        <b>NEXT ACTION</b><br><br>
 
         Integrasikan seluruh agent ke dalam satu dashboard COSMO.
+        `;
+    }
+
+    else {
+
+        answer =
+        `
+        <b>INFORMASI</b><br><br>
+
+        Saya belum memahami pertanyaan tersebut.<br><br>
+
+        <b>REKOMENDASI</b><br><br>
+
+        Gunakan pertanyaan tentang proyek, tujuan, visi, atau keputusan.<br><br>
+
+        <b>NEXT ACTION</b><br><br>
+
+        Coba pertanyaan lain.
         `;
     }
 
@@ -161,40 +114,14 @@ async function askCosmo() {
         .innerHTML =
         "<b>COSMO:</b><br><br>" +
         answer;
-}
 
-else if(q.includes("tujuan")){
+    document
+        .getElementById("question")
+        .value = "";
 
-answer =
-"Tujuan utama Anda adalah memenangkan Best Agent Week 12 dan membangun COSMO sebagai AI Chief of Staff.";
-
-}
-
-else if(q.includes("visi")){
-
-answer =
-"Visi COSMO adalah membangun One Person Company yang dijalankan oleh satu manusia dan AI Workforce.";
-
-}
-
-document
-    .getElementById("response")
-    .innerHTML =
-    "<b>COSMO:</b><br><br>" +
-    answer;
-
-document
-    .getElementById("question")
-    .value = "";
-
-document
-    .getElementById("question")
-    .focus();
-
+    document
+        .getElementById("question")
+        .focus();
 }
 
 </script>
-
-</body>
-
-</html>
