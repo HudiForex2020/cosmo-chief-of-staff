@@ -178,10 +178,18 @@ answer =
 }
 
 document
-.getElementById("response")
-.innerHTML =
-"<b>COSMO:</b><br><br>" +
-answer;
+    .getElementById("response")
+    .innerHTML =
+    "<b>COSMO:</b><br><br>" +
+    answer;
+
+document
+    .getElementById("question")
+    .value = "";
+
+document
+    .getElementById("question")
+    .focus();
 
 }
 
